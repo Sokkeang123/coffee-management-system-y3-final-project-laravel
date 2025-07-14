@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Coffee extends Model
 {
     protected $primaryKey = 'coffeeId';
-    public $incrementing = true;
 
     protected $fillable = [
         'name',

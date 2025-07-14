@@ -10,9 +10,23 @@ use Illuminate\Http\Request;
 class CoffeeController extends Controller
 {
 
+    // public function index()
+    // {
+    //     $coffees = Coffee::all();
+    //     return view('coffees.index', compact('coffees'));
+    // }
+    // Change the index() method to:
     public function index()
     {
-        $coffees = Coffee::all();
+        $coffees = Coffee::with([
+            'category' => function ($query) {
+                $query->select('categoryId', 'name');
+            },
+            'supplier' => function ($query) {
+                $query->select('supplierId', 'name');
+            }
+        ])->get();
+
         return view('coffees.index', compact('coffees'));
     }
 
@@ -23,6 +37,8 @@ class CoffeeController extends Controller
 
         return view('coffees.create', compact('categories', 'suppliers'));
     }
+
+
 
 
     public function store(Request $request)

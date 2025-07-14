@@ -28,9 +28,20 @@
                         <td>{{ $coffee->size }}</td>
                         <td>${{ $coffee->price }}</td>
                         <td>{{ $coffee->stock }}</td>
-                        <td>{{ optional($coffee->category)->name ?? 'N/A' }}</td>
-                        <td>{{ optional($coffee->supplier)->name ?? 'N/A' }}</td>
-
+                        <td>
+                            @if ($coffee->category)
+                                {{ $coffee->category->name }} (ID: {{ $coffee->category_id }})
+                            @else
+                                N/A (ID: {{ $coffee->category_id }})
+                            @endif
+                        </td>
+                        <td>
+                            @if ($coffee->supplier)
+                                {{ $coffee->supplier->name }} (ID: {{ $coffee->supplier_id }})
+                            @else
+                                N/A (ID: {{ $coffee->supplier_id }})
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('coffees.edit', $coffee->coffeeId) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('coffees.destroy', $coffee->coffeeId) }}" method="POST"
